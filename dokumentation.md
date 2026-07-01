@@ -54,15 +54,16 @@ Die Webseite soll Einträge hinzufügen können
 
 ## 5. Design-Ideen
 
-| Element          | Idee / Wert |
-| ---------------- | ----------- |
-| Hintergrundfarbe |             |
-| Akzentfarbe      |             |
-| Schrift (Titel)  |             |
-| Schrift (Text)   |             |
-| Look & Feel      |             |
+| Element            | Idee / Wert                                                             |
+| ------------------ | ----------------------------------------------------------------------- |
+| Hintergrundfarbe   | #1E1E2E (Midnight Navy)                                                 |
+| Button /Akzente    | #E8294A (Crimson Red)                                                   |
+| Button /Hover      | #C0235A (Deep Rose)                                                     |
+| Karten / Container | etwas heller als Hintergrund, z.B. #2A2A3E                              |
+| Schrift (Titel)    | #7B8BA5 (Steel Blue) /Rajdhani – kantig, technisch, sehr Gaming-typisch |
+| Schrift (Text)     | #E8EAF0 (Ghost White) / Inter – der Klassiker, extrem gut lesbar, clean |
 
-
+<!-- sowas vielleicht wäre schön: https://i.pinimg.com/736x/28/dd/f1/28ddf1d5d58836a0f12748bf0bc0662a.jpg-->
 
 ## 7. Changelog
 

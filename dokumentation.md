@@ -62,11 +62,7 @@ Die Webseite soll Einträge hinzufügen können
 | Schrift (Text)   |             |
 | Look & Feel      |             |
 
-## 6. Offene Fragen
 
-<!-- Dinge, die noch unklar sind -->
-
--
 
 ## 7. Changelog
 

@@ -73,3 +73,4 @@ Die Webseite soll Einträge hinzufügen können
 | ---------- | ------------------------------------------------------------------------------------- |
 | 28.06.2026 | Github account kreiert, datein in repo hinzugefügt, Dokumentation (mit Ki) ausgefüllt |
 | 30.06.2026 | Eingabefelder mit Validierung, Array mit allen Spielen ins LocaleStorage gespeicher   |
+| 01.07.2026 | Liste der Spiele wird in der Webseite angezeigt und Webseite zum großteil gestylt     |

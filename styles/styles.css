@@ -1,1 +1,59 @@
-/*Hallo*/
+/*Variblen*/
+:root {
+    --hintergrund: #1E1E2E;
+    --btn-akzent:  #E8294A;
+    --btn-hover:  #C0235A;
+    --box: #2A2A3E;
+    --titel-farbe:  #7B8BA5;
+    --titel-schriftart: 'Rajdhani', sans-serif;
+    --text-farbe:  #E8EAF0;
+    --text-schriftart: 'Inter',sans-serif;
+}
+
+body {
+    background-color: var(--hintergrund);
+    color: var(--text-farbe);
+    font-family: var(--text-schriftart);
+
+    /*Standardabstände vom Browser entfernen*/
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    font-family: var(--titel-schriftart);
+    color: var(--titel-farbe);
+    padding: 10px;
+    border-bottom: 2px solid  var(--btn-akzent);
+    background-color: var(--text-farbe);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+input, textarea {
+    background-color: var(--box);
+    color: var(--text-farbe);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button {
+    background-color: var(--btn-akzent);
+    color: var(--text-farbe);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--btn-hover);
+}

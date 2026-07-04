@@ -78,10 +78,16 @@ function renderSpiele(spiele) {
     //Einzelne Spiele vom Array auswählen
     let eintrag = document.createElement("li");
     for (let key in spiel) {
-      //Einzelne Eigenschaft von dem Spiel verwenden
+      //Einzelne Eigenschaft von dem Spiel verwenden    
       eintrag.textContent += `${key.toUpperCase()}: ${spiel[key]}\n`;
+      //Lösch-Knopf hinzufügen
     }
-    eintrag.id = "eintrag" + counter.toString();
+    //eintrag.id = "eintrag" + counter.toString();
+
+    const knopf = renderButton('löschen','click',handleDelete);
+    knopf.dataset.index = counter;
+    eintrag.append(knopf);
+
     counter++;
     liste.append(eintrag);
   }
@@ -89,4 +95,20 @@ function renderSpiele(spiele) {
   return liste;
 }
 
+function renderButton(text,eventtype,func) {
+  const button = document.createElement('button');
+  button.textContent = text.toUpperCase();
+  button.addEventListener(eventtype,func);
+  return button;
+}
+
+//#endregion
+
+//#region HandleFunktionnen
+function handleDelete() {
+  let index = event.target.dataset.index; //event.target ist der Knopf der gedrückt wurde
+  spiele.splice(index,1);
+  localStorage.setItem('spiele',JSON.stringify(spiele));
+  displaySpiele(spiele);
+}
 //#endregion

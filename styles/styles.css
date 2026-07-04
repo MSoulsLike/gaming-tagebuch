@@ -1,4 +1,4 @@
-/*Variblen*/
+/* #region Variblen*/
 :root {
     --hintergrund: #1E1E2E;
     --btn-akzent:  #E8294A;
@@ -10,6 +10,9 @@
     --text-schriftart: 'Inter',sans-serif;
 }
 
+/* #endregion */
+
+/* #region Html Tags*/
 body {
     background-color: var(--hintergrund);
     color: var(--text-farbe);
@@ -56,4 +59,26 @@ button {
 
 button:hover {
     background-color: var(--btn-hover);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+li {
+    background-color: var(--box);
+    padding: 10px;
+    border-radius: 5px;
+    border-left: 4px solid var(--btn-akzent) ;
+}
+/* #endregion*/
+
+/*Id*/
+#BoxSpiele {
+    max-width: 600px;
+    margin: 20px auto;
 }

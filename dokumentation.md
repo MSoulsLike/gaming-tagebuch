@@ -18,7 +18,7 @@ Die Webseite soll Einträge hinzufügen können
 
 ### 🔜 Bald (v2)
 
-- Bearbeiten eines Eintrags
+- Bearbeiten eines Eintrags ✅
 - Eintrag löschen können ✅
 - Sortieren (nach Bewertung, Spieldauer..)
 
@@ -69,8 +69,9 @@ Die Webseite soll Einträge hinzufügen können
 
 <!-- Kurz dokumentieren, wann was geändert wurde -->
 
-| Datum      | Änderung                                                                              |
-| ---------- | ------------------------------------------------------------------------------------- |
-| 28.06.2026 | Github account kreiert, datein in repo hinzugefügt, Dokumentation (mit Ki) ausgefüllt |
-| 30.06.2026 | Eingabefelder mit Validierung, Array mit allen Spielen ins LocaleStorage gespeicher   |
-| 01.07.2026 | Liste der Spiele wird in der Webseite angezeigt und Webseite zum großteil gestylt     |
+| Datum      | Änderung                                                                                           |
+| ---------- | -------------------------------------------------------------------------------------------------- |
+| 28.06.2026 | Github account kreiert, datein in repo hinzugefügt, Dokumentation (mit Ki) ausgefüllt              |
+| 30.06.2026 | Eingabefelder mit Validierung, Array mit allen Spielen ins LocaleStorage gespeicher                |
+| 01.07.2026 | Liste der Spiele wird in der Webseite angezeigt und Webseite zum großteil gestylt                  |
+| 04.07.2026 | fertig gestylt, Lösche-, als auch Bearbeiten-Funktion implementiert und SortierFunktion angefangen |

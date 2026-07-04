@@ -7,6 +7,7 @@ let state = -1; //Wenn eins dann kann Nutzer neuen Eintrag hinzufügen, wenn er 
 
 function init() {
   document.querySelector("#form-btn").addEventListener("click", validateInput);
+  document.querySelector('#sortieren').addEventListener('change',handleSort); //change = wenn Nutzer was auswählt, wirds sofort ausgefüght
   if (spiele.length > 0) {
     //Überprüfen ob es mind. ein Spiel im Array existiert
     displaySpiele(spiele);
@@ -132,5 +133,13 @@ function handleEdit() {
   document.querySelector('#fazit').value = objekt['fazit'];
 
   state = index;
+}
+
+function handleSort() {
+  let methode = event.target.value;
+  
+  //Kopie des Arrays erstellen
+  let kopie = [...spiele]; //Damit wird eine tatsächliche Kopie gemacht; spiele != kopie
+  kopie.sort()
 }
 //#endregion

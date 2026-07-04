@@ -42,6 +42,7 @@ form {
 }
 
 input, textarea {
+    border: 1px solid var(--titel-farbe);
     background-color: var(--box);
     color: var(--text-farbe);
     padding: 10px;
@@ -70,6 +71,7 @@ ul {
 }
 
 li {
+    white-space: pre-line; /*Damit \n nicht vom Browser ignoriert wird*/
     background-color: var(--box);
     padding: 10px;
     border-radius: 5px;

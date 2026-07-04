@@ -79,7 +79,7 @@ function renderSpiele(spiele) {
     let eintrag = document.createElement("li");
     for (let key in spiel) {
       //Einzelne Eigenschaft von dem Spiel verwenden
-      eintrag.textContent += spiel[key] + " ";
+      eintrag.textContent += `${key.toUpperCase()}: ${spiel[key]}\n`;
     }
     eintrag.id = "eintrag" + counter.toString();
     counter++;

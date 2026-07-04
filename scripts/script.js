@@ -3,6 +3,8 @@ let spiele =
     ? JSON.parse(localStorage.getItem("spiele"))
     : [];
 
+let state = -1; //Wenn eins dann kann Nutzer neuen Eintrag hinzufügen, wenn er anders ist, ist es der Index von dem Eintrag der Bearbeitet werden soll
+
 function init() {
   document.querySelector("#form-btn").addEventListener("click", validateInput);
   if (spiele.length > 0) {
@@ -32,14 +34,19 @@ function validateInput() {
     document.querySelector("#bewertung").value = "";
     document.querySelector("#fazit").value = "";
 
-    //Spiel hinzufügen
-    spiele.push(spiel);
-
+    if (state === -1) {
+        //Spiel hinzufügen
+        spiele.push(spiel);
+    } else { 
+        spiele[state] = spiel;
+        state = -1;
+    }
     //Das Array abspeichern
     localStorage.setItem("spiele", JSON.stringify(spiele));
 
     //Spiele in der Webseite anzeigen
     displaySpiele(spiele); //Array übergeben an Funktion ist leichter für mich im Kopf
+
   } else {
     //Fehlermeldung
     alert("Ihre Eingaben sind Ungültig!!!");
@@ -78,15 +85,19 @@ function renderSpiele(spiele) {
     //Einzelne Spiele vom Array auswählen
     let eintrag = document.createElement("li");
     for (let key in spiel) {
-      //Einzelne Eigenschaft von dem Spiel verwenden    
+      //Einzelne Eigenschaft von dem Spiel verwenden
       eintrag.textContent += `${key.toUpperCase()}: ${spiel[key]}\n`;
-      //Lösch-Knopf hinzufügen
     }
-    //eintrag.id = "eintrag" + counter.toString();
 
-    const knopf = renderButton('löschen','click',handleDelete);
+    //Lösch-Knopf hinzufügen
+    const knopf = renderButton("löschen", "click", handleDelete);
     knopf.dataset.index = counter;
     eintrag.append(knopf);
+
+    //Bearbeiten-Knopf hinzufügen
+    const bearbeiten = renderButton("bearbeiten","click",handleEdit);
+    bearbeiten.dataset.index = counter;
+    eintrag.append(bearbeiten);
 
     counter++;
     liste.append(eintrag);
@@ -95,10 +106,10 @@ function renderSpiele(spiele) {
   return liste;
 }
 
-function renderButton(text,eventtype,func) {
-  const button = document.createElement('button');
+function renderButton(text, eventtype, func) {
+  const button = document.createElement("button");
   button.textContent = text.toUpperCase();
-  button.addEventListener(eventtype,func);
+  button.addEventListener(eventtype, func);
   return button;
 }
 
@@ -107,8 +118,19 @@ function renderButton(text,eventtype,func) {
 //#region HandleFunktionnen
 function handleDelete() {
   let index = event.target.dataset.index; //event.target ist der Knopf der gedrückt wurde
-  spiele.splice(index,1);
-  localStorage.setItem('spiele',JSON.stringify(spiele));
+  spiele.splice(index, 1);
+  localStorage.setItem("spiele", JSON.stringify(spiele));
   displaySpiele(spiele);
+}
+
+function handleEdit() {
+  let index = event.target.dataset.index;
+  let objekt = spiele[index];
+  //die Keys vom Objekt auslesen und in die Inputfelder von der Formular mit die Daten des Objekts füllen
+  document.querySelector('#titel').value = objekt['titel'];
+  document.querySelector('#bewertung').value = objekt['bewertung'];
+  document.querySelector('#fazit').value = objekt['fazit'];
+
+  state = index;
 }
 //#endregion

@@ -12,14 +12,14 @@ Die Webseite soll Einträge hinzufügen können
 
 ### ✅ Muss (v1)
 
-- Titel, Fazit, Bewertung
-- Einträge hinzufügen können,
-- Abspeichern der Einträge
+- Titel, Fazit, Bewertung ✅
+- Einträge hinzufügen können, ✅
+- Abspeichern der Einträge ✅
 
 ### 🔜 Bald (v2)
 
 - Bearbeiten eines Eintrags
-- Eintrag löschen können
+- Eintrag löschen können ✅
 - Sortieren (nach Bewertung, Spieldauer..)
 
 ### 💡 Später / Ideen (v3+)

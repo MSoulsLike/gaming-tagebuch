@@ -63,7 +63,6 @@ Die Webseite soll Einträge hinzufügen können
 | Schrift (Titel)    | #7B8BA5 (Steel Blue) /Rajdhani – kantig, technisch, sehr Gaming-typisch |
 | Schrift (Text)     | #E8EAF0 (Ghost White) / Inter – der Klassiker, extrem gut lesbar, clean |
 
-<!-- sowas vielleicht wäre schön: https://i.pinimg.com/736x/28/dd/f1/28ddf1d5d58836a0f12748bf0bc0662a.jpg-->
 
 ## 7. Changelog
 

@@ -140,6 +140,16 @@ function handleSort() {
   
   //Kopie des Arrays erstellen
   let kopie = [...spiele]; //Damit wird eine tatsächliche Kopie gemacht; spiele != kopie
-  kopie.sort()
+  if (methode === 'aufsteigend') {
+    kopie.sort((a,b) => a.bewertung - b.bewertung); // bewertung von Objekt - einer anderen Bewertung => positiv = b kommt vor a; negativ = a kommt vor b; 0 = nichts wird geändert
+  } else if (methode === 'absteigend') {
+    kopie.sort((a,b) => b.bewertung - a.bewertung);
+  } else if (methode === 'az') {
+    kopie.sort((a,b) => a.titel.localeCompare(b.titel));  // wird mit der Reihenfolge des Alphabets verglichen;  a kommt vor c  
+  } else if (methode === 'za') {
+    kopie.sort((a,b) => b.titel.localeCompare(a.titel));
+  }
+
+  displaySpiele(kopie);
 }
 //#endregion

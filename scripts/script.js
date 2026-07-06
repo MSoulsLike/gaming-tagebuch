@@ -94,6 +94,7 @@ function renderSpiele(spiele) {
         eintrag.textContent += handleIconForGame(spiel[key]);
       }
       eintrag.textContent += "\n";
+      eintrag.style.backgroundColor = handleColorOfGame(spiel['bewertung']);  //Farbe von Box ändern
     }
 
     //Lösch-Knopf hinzufügen
@@ -105,6 +106,7 @@ function renderSpiele(spiele) {
     const bearbeiten = renderButton("bearbeiten", "click", handleEdit);
     bearbeiten.dataset.index = counter;
     eintrag.append(bearbeiten);
+
 
     counter++;
     liste.append(eintrag);
@@ -150,12 +152,16 @@ function handleSort() {
   switch (methode) {
     case "aufsteigend":
       kopie.sort((a, b) => a.bewertung - b.bewertung); // bewertung von Objekt - einer anderen Bewertung => positiv = b kommt vor a; negativ = a kommt vor b; 0 = nichts wird geändert
+      break;
     case "absteigend":
       kopie.sort((a, b) => b.bewertung - a.bewertung);
+      break;
     case "az":
       kopie.sort((a, b) => a.titel.localeCompare(b.titel)); // wird mit der Reihenfolge des Alphabets verglichen;  a kommt vor c
+      break;
     case "za":
       kopie.sort((a, b) => b.titel.localeCompare(a.titel));
+      break;
   }
 
   displaySpiele(kopie);
@@ -174,6 +180,16 @@ function handleIconForGame(plattform) {
     case "XBox":
       return "🟢";
   } //Alles eigentlich nur ein else if Block
+}
+
+function handleColorOfGame(bewertung) {
+  if (bewertung <= 2) {
+    return 'rgba(76, 175, 80, 0.4)';
+  } else if (bewertung === 3) {
+    return 'rgba(255, 193, 7, 0.4)';
+  } else {
+    return 'rgba(232, 41, 74, 0.4)';
+  }
 }
 
 //#endregion

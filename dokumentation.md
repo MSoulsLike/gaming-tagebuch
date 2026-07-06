@@ -68,10 +68,11 @@ Die Webseite soll Einträge hinzufügen können
 
 <!-- Kurz dokumentieren, wann was geändert wurde -->
 
-| Datum      | Änderung                                                                                                        |
-| ---------- | --------------------------------------------------------------------------------------------------------------- |
-| 28.06.2026 | Github account kreiert, datein in repo hinzugefügt, Dokumentation (mit Ki) ausgefüllt                           |
-| 30.06.2026 | Eingabefelder mit Validierung, Array mit allen Spielen ins LocaleStorage gespeicher                             |
-| 01.07.2026 | Liste der Spiele wird in der Webseite angezeigt und Webseite zum großteil gestylt                               |
-| 04.07.2026 | fertig gestylt, Lösche-, als auch Bearbeiten-Funktion implementiert und SortierFunktion angefangen              |
-| 05.07.2026 | Soritieren funktioniert und Icons für die Plattform hinzugefügt (alle else if Blöcke wurden mit switch ersetzt) |
+| Datum      | Änderung                                                                                                                                                   |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 28.06.2026 | Github account kreiert, datein in repo hinzugefügt, Dokumentation (mit Ki) ausgefüllt                                                                      |
+| 30.06.2026 | Eingabefelder mit Validierung, Array mit allen Spielen ins LocaleStorage gespeicher                                                                        |
+| 01.07.2026 | Liste der Spiele wird in der Webseite angezeigt und Webseite zum großteil gestylt                                                                          |
+| 04.07.2026 | fertig gestylt, Lösche-, als auch Bearbeiten-Funktion implementiert und SortierFunktion angefangen                                                         |
+| 05.07.2026 | Soritieren funktioniert und Icons für die Plattform hinzugefügt (alle else if Blöcke wurden mit switch ersetzt)                                            |
+| 06.07.2026 | Farbe der Einträge, passierend auf deren Bewerturng, ändern , Eingabe von AnfangsDatum und EndDatum hinzugefügt => noch mit Bearbeiten geht das noch nicht |

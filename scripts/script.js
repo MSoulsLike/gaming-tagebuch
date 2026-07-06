@@ -21,15 +21,22 @@ function validateInput() {
   let bewertung = parseInt(document.querySelector("#bewertung").value);
   let fazit = document.querySelector("#fazit").value;
   let plattform = document.querySelector("#plattform").value;
+  let datumanfang = document.querySelector('#datumanfang').value;
+  let datumende = document.querySelector('#datumende').value;
+
+  datumanfang = (datumanfang === "") ? "" : new Date(datumanfang).toLocaleDateString('de-DE');
+  datumende = (datumende === "") ?  new Date().toLocaleDateString('de-DE') : new Date(datumende).toLocaleDateString('de-DE')
 
   //Einzelne Daten validieren
-  if (validateTitel(titel) && validateBewertung(bewertung) && plattform != "") {
+  if (validateTitel(titel) && validateBewertung(bewertung) && plattform != "" && validateDatum(datumanfang,datumende)) {
     //Objekt erstellen
     let spiel = {
       titel: titel,
       bewertung: bewertung,
       fazit: fazit,
       plattform: plattform,
+      beginn: datumanfang,
+      ende: datumende
     };
 
     //Eingabefelder löschen für den Swag
@@ -37,6 +44,8 @@ function validateInput() {
     document.querySelector("#bewertung").value = "";
     document.querySelector("#fazit").value = "";
     document.querySelector("#plattform").value = "";
+    document.querySelector('#datumanfang').value = "";
+    document.querySelector('#datumende').value = "";
 
     if (state === -1) {
       //Spiel hinzufügen
@@ -66,6 +75,17 @@ function validateBewertung(bewertung) {
     : true; //NaN === NaN => false hammer logik
 }
 
+function validateDatum(anfang,ende) {
+  if (anfang === "") {
+    return true;
+  }
+
+  let dateAnfang = new Date(anfang);
+  let dateEnde = new Date(ende);
+
+  return (dateAnfang > dateEnde) ? false : true;
+}
+
 //#endregion
 
 //#region displayFunktionen
@@ -89,7 +109,11 @@ function renderSpiele(spiele) {
     let eintrag = document.createElement("li");
     for (let key in spiel) {
       //Einzelne Eigenschaft von dem Spiel verwenden
-      eintrag.textContent += `${key.toUpperCase()}: ${spiel[key]} `;
+      if (spiel[key] !== "") {
+         eintrag.textContent += `${key.toUpperCase()}: ${spiel[key]} `;
+      } else {
+        eintrag.textContent += `${key.toUpperCase()}: ----||---- `
+      }
       if (key === "plattform") {
         eintrag.textContent += handleIconForGame(spiel[key]);
       }

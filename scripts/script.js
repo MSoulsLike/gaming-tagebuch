@@ -59,6 +59,7 @@ function validateInput() {
       spiele.push(spiel);
     
     } else {
+      document.querySelector('#form-btn').textContent = 'Fertigstellen';
       spiele[state] = spiel;
       state = -1;
     
@@ -182,7 +183,9 @@ function handleEdit() {
   document.querySelector("#fazit").value = objekt["fazit"];
   document.querySelector("#datumanfang").value = objekt["beginn"];
   document.querySelector("#datumende").value = objekt["ende"];
+  document.querySelector('#plattform').value = objekt["plattform"];
 
+  document.querySelector('#form-btn').textContent = 'Aktualisieren';
   state = index;
 }
 

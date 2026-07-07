@@ -10,6 +10,7 @@ function init() {
   document.querySelector("#sortieren").addEventListener("change", handleSort); //change = wenn Nutzer was auswählt, wirds sofort ausgefüght
   if (spiele.length > 0) {
     //Überprüfen ob es mind. ein Spiel im Array existiert
+    handleUpdateCounter();
     displaySpiele(spiele);
   }
 }
@@ -56,14 +57,17 @@ function validateInput() {
     if (state === -1) {
       //Spiel hinzufügen
       spiele.push(spiel);
+    
     } else {
       spiele[state] = spiel;
       state = -1;
+    
     }
     //Das Array abspeichern
     localStorage.setItem("spiele", JSON.stringify(spiele));
 
     //Spiele in der Webseite anzeigen
+    handleUpdateCounter();
     displaySpiele(spiele); //Array übergeben an Funktion ist leichter für mich im Kopf
   } else {
     //Fehlermeldung
@@ -179,8 +183,6 @@ function handleEdit() {
   document.querySelector("#datumanfang").value = objekt["beginn"];
   document.querySelector("#datumende").value = objekt["ende"];
 
-  console.log(JSON.parse(localStorage.getItem('spiele')))
-
   state = index;
 }
 
@@ -230,6 +232,15 @@ function handleColorOfGame(bewertung) {
     return "rgba(255, 193, 7, 0.4)";
   } else {
     return "rgba(232, 41, 74, 0.4)";
+  }
+}
+
+function handleUpdateCounter() {
+  document.querySelector('#zähler').textContent = `${spiele.length}`;
+  if (spiele.length === 1) { //Nur damit die Webseite besser ausschaut, dies stört mit persönlich
+      document.querySelector('#zähler').textContent += " Spiel eingetragen";
+  } else {
+     document.querySelector('#zähler').textContent += " Spiele eingetragen"
   }
 }
 

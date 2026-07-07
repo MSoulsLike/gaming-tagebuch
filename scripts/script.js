@@ -21,14 +21,20 @@ function validateInput() {
   let bewertung = parseInt(document.querySelector("#bewertung").value);
   let fazit = document.querySelector("#fazit").value;
   let plattform = document.querySelector("#plattform").value;
-  let datumanfang = document.querySelector('#datumanfang').value;
-  let datumende = document.querySelector('#datumende').value;
+  let datumanfang = document.querySelector("#datumanfang").value;
+  let datumende = document.querySelector("#datumende").value;
 
-  datumanfang = (datumanfang === "") ? "" : new Date(datumanfang).toLocaleDateString('de-DE');
-  datumende = (datumende === "") ?  new Date().toLocaleDateString('de-DE') : new Date(datumende).toLocaleDateString('de-DE')
+  if (datumende === "") {
+    datumende = new Date().toISOString().split('T')[0]; //Sonst ist der Wert in dem falschen Format
+  }
 
   //Einzelne Daten validieren
-  if (validateTitel(titel) && validateBewertung(bewertung) && plattform != "" && validateDatum(datumanfang,datumende)) {
+  if (
+    validateTitel(titel) &&
+    validateBewertung(bewertung) &&
+    plattform != "" &&
+    validateDatum(datumanfang, datumende)
+  ) {
     //Objekt erstellen
     let spiel = {
       titel: titel,
@@ -36,7 +42,7 @@ function validateInput() {
       fazit: fazit,
       plattform: plattform,
       beginn: datumanfang,
-      ende: datumende
+      ende: datumende,
     };
 
     //Eingabefelder löschen für den Swag
@@ -44,8 +50,8 @@ function validateInput() {
     document.querySelector("#bewertung").value = "";
     document.querySelector("#fazit").value = "";
     document.querySelector("#plattform").value = "";
-    document.querySelector('#datumanfang').value = "";
-    document.querySelector('#datumende').value = "";
+    document.querySelector("#datumanfang").value = "";
+    document.querySelector("#datumende").value = "";
 
     if (state === -1) {
       //Spiel hinzufügen
@@ -75,7 +81,7 @@ function validateBewertung(bewertung) {
     : true; //NaN === NaN => false hammer logik
 }
 
-function validateDatum(anfang,ende) {
+function validateDatum(anfang, ende) {
   if (anfang === "") {
     return true;
   }
@@ -83,7 +89,7 @@ function validateDatum(anfang,ende) {
   let dateAnfang = new Date(anfang);
   let dateEnde = new Date(ende);
 
-  return (dateAnfang > dateEnde) ? false : true;
+  return dateAnfang > dateEnde ? false : true;
 }
 
 //#endregion
@@ -109,16 +115,24 @@ function renderSpiele(spiele) {
     let eintrag = document.createElement("li");
     for (let key in spiel) {
       //Einzelne Eigenschaft von dem Spiel verwenden
-      if (spiel[key] !== "") {
-         eintrag.textContent += `${key.toUpperCase()}: ${spiel[key]} `;
+      eintrag.textContent += `${key.toUpperCase()}: `;
+
+      if (spiel[key] === "") { //Fazit oder Datumanfang sein
+        eintrag.textContent += `----||---- `;
+      } else if (key === "beginn" || key === "ende") {
+        eintrag.textContent += `${(new Date(spiel[key])).toLocaleDateString("de-DE")}`;
       } else {
-        eintrag.textContent += `${key.toUpperCase()}: ----||---- `
+        eintrag.textContent += `${spiel[key]}`;
       }
+
       if (key === "plattform") {
         eintrag.textContent += handleIconForGame(spiel[key]);
-      }
+      } 
+
+
+
       eintrag.textContent += "\n";
-      eintrag.style.backgroundColor = handleColorOfGame(spiel['bewertung']);  //Farbe von Box ändern
+      eintrag.style.backgroundColor = handleColorOfGame(spiel["bewertung"]); //Farbe von Box ändern
     }
 
     //Lösch-Knopf hinzufügen
@@ -130,7 +144,6 @@ function renderSpiele(spiele) {
     const bearbeiten = renderButton("bearbeiten", "click", handleEdit);
     bearbeiten.dataset.index = counter;
     eintrag.append(bearbeiten);
-
 
     counter++;
     liste.append(eintrag);
@@ -163,6 +176,10 @@ function handleEdit() {
   document.querySelector("#titel").value = objekt["titel"];
   document.querySelector("#bewertung").value = objekt["bewertung"];
   document.querySelector("#fazit").value = objekt["fazit"];
+  document.querySelector("#datumanfang").value = objekt["beginn"];
+  document.querySelector("#datumende").value = objekt["ende"];
+
+  console.log(JSON.parse(localStorage.getItem('spiele')))
 
   state = index;
 }
@@ -208,11 +225,11 @@ function handleIconForGame(plattform) {
 
 function handleColorOfGame(bewertung) {
   if (bewertung <= 2) {
-    return 'rgba(76, 175, 80, 0.4)';
+    return "rgba(76, 175, 80, 0.4)";
   } else if (bewertung === 3) {
-    return 'rgba(255, 193, 7, 0.4)';
+    return "rgba(255, 193, 7, 0.4)";
   } else {
-    return 'rgba(232, 41, 74, 0.4)';
+    return "rgba(232, 41, 74, 0.4)";
   }
 }
 

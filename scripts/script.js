@@ -8,6 +8,7 @@ let state = -1; //Wenn eins dann kann Nutzer neuen Eintrag hinzufügen, wenn er 
 function init() {
   document.querySelector("#form-btn").addEventListener("click", validateInput);
   document.querySelector("#sortieren").addEventListener("change", handleSort); //change = wenn Nutzer was auswählt, wirds sofort ausgefüght
+  document.querySelector('#sortierPlattform').addEventListener("change",handleSortPlattform);
   if (spiele.length > 0) {
     //Überprüfen ob es mind. ein Spiel im Array existiert
     handleUpdateCounter();
@@ -245,6 +246,17 @@ function handleUpdateCounter() {
   } else {
      document.querySelector('#zähler').textContent += " Spiele eingetragen"
   }
+}
+
+function handleSortPlattform() {
+  let methode = event.target.value;
+
+  if (methode !== "") {
+    let kopie = [...spiele];
+    let kopieFilter = kopie.filter(spiel => spiel.plattform === methode );
+    displaySpiele(kopieFilter);
+  }
+
 }
 
 //#endregion

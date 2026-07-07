@@ -37,10 +37,12 @@
         <textarea id="fazit" maxlength="300"></textarea>
 
         <label for="datumanfang">Datum andem Spiel angefangen wurde: </label>
-        <input type="date" id="datumanfang">
-        
-        <label for="datumende">Datum andem Spiel beendet wurde (Default: Heute): </label>
-        <input type="date" id="datumende">
+        <input type="date" id="datumanfang" />
+
+        <label for="datumende"
+          >Datum andem Spiel beendet wurde (Default: Heute):
+        </label>
+        <input type="date" id="datumende" />
 
         <label for="plattform">Plattform: </label>
         <select name="plattform" id="plattform">
@@ -61,6 +63,14 @@
         <option value="absteigend">Bewertung absteigend</option>
         <option value="az">Titel A-Z</option>
         <option value="za">Titel Z-A</option>
+      </select>
+
+      <select name="sortierPlattform" id="sortierPlattform">
+        <option value="">Keine Sortierung</option>
+        <option value="PC">Pc (Steam,Epic Games,etc..)</option>
+        <option value="Nintendo">Nintendo</option>
+        <option value="PlayStation">PlayStation</option>
+        <option value="XBox">XBox</option>
       </select>
 
       <div id="BoxSpiele"></div>

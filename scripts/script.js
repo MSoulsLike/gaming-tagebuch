@@ -8,7 +8,9 @@ let state = -1; //Wenn eins dann kann Nutzer neuen Eintrag hinzufügen, wenn er 
 function init() {
   document.querySelector("#form-btn").addEventListener("click", validateInput);
   document.querySelector("#sortieren").addEventListener("change", handleSort); //change = wenn Nutzer was auswählt, wirds sofort ausgefüght
-  document.querySelector('#sortierPlattform').addEventListener("change",handleSortPlattform);
+  document
+    .querySelector("#sortierPlattform")
+    .addEventListener("change", handleSortPlattform);
   if (spiele.length > 0) {
     //Überprüfen ob es mind. ein Spiel im Array existiert
     handleUpdateCounter();
@@ -27,7 +29,7 @@ function validateInput() {
   let datumende = document.querySelector("#datumende").value;
 
   if (datumende === "") {
-    datumende = new Date().toISOString().split('T')[0]; //Sonst ist der Wert in dem falschen Format
+    datumende = new Date().toISOString().split("T")[0]; //Sonst ist der Wert in dem falschen Format
   }
 
   //Einzelne Daten validieren
@@ -58,12 +60,10 @@ function validateInput() {
     if (state === -1) {
       //Spiel hinzufügen
       spiele.push(spiel);
-    
     } else {
-      document.querySelector('#form-btn').textContent = 'Fertigstellen';
+      document.querySelector("#form-btn").textContent = "Fertigstellen";
       spiele[state] = spiel;
       state = -1;
-    
     }
     //Das Array abspeichern
     localStorage.setItem("spiele", JSON.stringify(spiele));
@@ -123,19 +123,18 @@ function renderSpiele(spiele) {
       //Einzelne Eigenschaft von dem Spiel verwenden
       eintrag.textContent += `${key.toUpperCase()}: `;
 
-      if (spiel[key] === "") { //Fazit oder Datumanfang sein
+      if (spiel[key] === "") {
+        //Fazit oder Datumanfang sein
         eintrag.textContent += `----||---- `;
       } else if (key === "beginn" || key === "ende") {
-        eintrag.textContent += `${(new Date(spiel[key])).toLocaleDateString("de-DE")}`;
+        eintrag.textContent += `${new Date(spiel[key]).toLocaleDateString("de-DE")}`;
       } else {
         eintrag.textContent += `${spiel[key]}`;
       }
 
       if (key === "plattform") {
         eintrag.textContent += handleIconForGame(spiel[key]);
-      } 
-
-
+      }
 
       eintrag.textContent += "\n";
       eintrag.style.backgroundColor = handleColorOfGame(spiel["bewertung"]); //Farbe von Box ändern
@@ -184,17 +183,22 @@ function handleEdit() {
   document.querySelector("#fazit").value = objekt["fazit"];
   document.querySelector("#datumanfang").value = objekt["beginn"];
   document.querySelector("#datumende").value = objekt["ende"];
-  document.querySelector('#plattform').value = objekt["plattform"];
+  document.querySelector("#plattform").value = objekt["plattform"];
 
-  document.querySelector('#form-btn').textContent = 'Aktualisieren';
+  document.querySelector("#form-btn").textContent = "Aktualisieren";
   state = index;
 }
 
 function handleSort() {
   let methode = event.target.value;
-
+  let kopie;
   //Kopie des Arrays erstellen
-  let kopie = [...spiele]; //Damit wird eine tatsächliche Kopie gemacht; spiele != kopie
+  if (localStorage.getItem("kopie") === null) {
+    kopie = [...spiele]; //Damit wird eine tatsächliche Kopie gemacht; spiele != kopie
+  } else {
+    let item = JSON.parse(localStorage.getItem("kopie"));
+    kopie = [...item];
+  }
 
   switch (methode) {
     case "aufsteigend":
@@ -240,11 +244,12 @@ function handleColorOfGame(bewertung) {
 }
 
 function handleUpdateCounter() {
-  document.querySelector('#zähler').textContent = `${spiele.length}`;
-  if (spiele.length === 1) { //Nur damit die Webseite besser ausschaut, dies stört mit persönlich
-      document.querySelector('#zähler').textContent += " Spiel eingetragen";
+  document.querySelector("#zähler").textContent = `${spiele.length}`;
+  if (spiele.length === 1) {
+    //Nur damit die Webseite besser ausschaut, dies stört mit persönlich
+    document.querySelector("#zähler").textContent += " Spiel eingetragen";
   } else {
-     document.querySelector('#zähler').textContent += " Spiele eingetragen"
+    document.querySelector("#zähler").textContent += " Spiele eingetragen";
   }
 }
 
@@ -253,10 +258,10 @@ function handleSortPlattform() {
 
   if (methode !== "") {
     let kopie = [...spiele];
-    let kopieFilter = kopie.filter(spiel => spiel.plattform === methode );
+    let kopieFilter = kopie.filter((spiel) => spiel.plattform === methode);
+    localStorage.setItem("kopie", JSON.stringify(kopieFilter)); //Dafür wenn Benutzer nach Plattfrom sortiert und regulär sortiert
     displaySpiele(kopieFilter);
   }
-
 }
 
 //#endregion

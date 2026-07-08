@@ -57,7 +57,8 @@
       </form>
 
       <!--Anzeige Feld -->
-      <select name="sortieren" id="sortieren">
+      <div id="sucheFuerNutzer">
+         <select name="sortieren" id="sortieren">
         <option value="standard">Keine Sortierung</option>
         <option value="aufsteigend">Bewertung aufsteigend</option>
         <option value="absteigend">Bewertung absteigend</option>
@@ -73,6 +74,11 @@
         <option value="XBox">XBox</option>
       </select>
 
+      <label for="suche">Spiel suchen: </label>
+      <input type="text" id="suche" />
+
+      </div>
+     
       <div id="BoxSpiele"></div>
     </main>
 

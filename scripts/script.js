@@ -4,17 +4,22 @@ let spiele =
     : [];
 
 let state = -1; //Wenn eins dann kann Nutzer neuen Eintrag hinzufügen, wenn er anders ist, ist es der Index von dem Eintrag der Bearbeitet werden soll
+//Für sämtliche Sortierungen, damit nichts schiefgehen kann
+let aktiverFilter = ""; //Plattform
+let aktiveSuche = ""; //Suche
+let aktiveSortierung = "standard"; //Sortierung der Liste
 
 function init() {
   document.querySelector("#form-btn").addEventListener("click", validateInput);
-  document.querySelector("#sortieren").addEventListener("change", handleSort); //change = wenn Nutzer was auswählt, wirds sofort ausgefüght
+  document.querySelector("#sortieren").addEventListener("change", handleSort); //change = wenn Nutzer was auswählt, wirds sofort ausgeführt
   document
     .querySelector("#sortierPlattform")
     .addEventListener("change", handleSortPlattform);
+  document.querySelector("#suche").addEventListener("input", handleSearchGame);
   if (spiele.length > 0) {
     //Überprüfen ob es mind. ein Spiel im Array existiert
     handleUpdateCounter();
-    displaySpiele(spiele);
+    handleSortingOfArray();
   }
 }
 
@@ -70,7 +75,7 @@ function validateInput() {
 
     //Spiele in der Webseite anzeigen
     handleUpdateCounter();
-    displaySpiele(spiele); //Array übergeben an Funktion ist leichter für mich im Kopf
+    handleSortingOfArray();
   } else {
     //Fehlermeldung
     alert("Ihre Eingaben sind Ungültig!!!");
@@ -190,32 +195,8 @@ function handleEdit() {
 }
 
 function handleSort() {
-  let methode = event.target.value;
-  let kopie;
-  //Kopie des Arrays erstellen
-  if (localStorage.getItem("kopie") === null) {
-    kopie = [...spiele]; //Damit wird eine tatsächliche Kopie gemacht; spiele != kopie
-  } else {
-    let item = JSON.parse(localStorage.getItem("kopie"));
-    kopie = [...item];
-  }
-
-  switch (methode) {
-    case "aufsteigend":
-      kopie.sort((a, b) => a.bewertung - b.bewertung); // bewertung von Objekt - einer anderen Bewertung => positiv = b kommt vor a; negativ = a kommt vor b; 0 = nichts wird geändert
-      break;
-    case "absteigend":
-      kopie.sort((a, b) => b.bewertung - a.bewertung);
-      break;
-    case "az":
-      kopie.sort((a, b) => a.titel.localeCompare(b.titel)); // wird mit der Reihenfolge des Alphabets verglichen;  a kommt vor c
-      break;
-    case "za":
-      kopie.sort((a, b) => b.titel.localeCompare(a.titel));
-      break;
-  }
-
-  displaySpiele(kopie);
+  aktiveSortierung = event.target.value;
+  handleSortingOfArray();
 }
 
 function handleIconForGame(plattform) {
@@ -254,14 +235,46 @@ function handleUpdateCounter() {
 }
 
 function handleSortPlattform() {
-  let methode = event.target.value;
+  aktiverFilter = event.target.value;
+  handleSortingOfArray();
+}
 
-  if (methode !== "") {
-    let kopie = [...spiele];
-    let kopieFilter = kopie.filter((spiel) => spiel.plattform === methode);
-    localStorage.setItem("kopie", JSON.stringify(kopieFilter)); //Dafür wenn Benutzer nach Plattfrom sortiert und regulär sortiert
-    displaySpiele(kopieFilter);
+function handleSearchGame() {
+  aktiveSuche = event.target.value;
+  handleSortingOfArray();
+}
+
+function handleSortingOfArray() {
+  let kopie = [...spiele];
+  //Filter
+  if (aktiverFilter !== "") {
+    kopie = kopie.filter((spiel) => spiel.plattform === aktiverFilter);
   }
+
+  if (aktiveSuche !== "") {
+    kopie = kopie.filter((spiel) =>
+      spiel.titel.toLowerCase().includes(aktiveSuche),
+    );
+  }
+
+  if (aktiveSortierung !== "") {
+    switch (aktiveSortierung) {
+      case "aufsteigend":
+        kopie.sort((a, b) => a.bewertung - b.bewertung); // bewertung von Objekt - einer anderen Bewertung => positiv = b kommt vor a; negativ = a kommt vor b; 0 = nichts wird geändert
+        break;
+      case "absteigend":
+        kopie.sort((a, b) => b.bewertung - a.bewertung);
+        break;
+      case "az":
+        kopie.sort((a, b) => a.titel.localeCompare(b.titel)); // wird mit der Reihenfolge des Alphabets verglichen;  a kommt vor c
+        break;
+      case "za":
+        kopie.sort((a, b) => b.titel.localeCompare(a.titel));
+        break;
+    }
+  }
+
+  displaySpiele(kopie);
 }
 
 //#endregion

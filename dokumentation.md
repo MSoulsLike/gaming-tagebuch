@@ -77,3 +77,4 @@ Die Webseite soll Einträge hinzufügen können
 | 05.07.2026 | Soritieren funktioniert und Icons für die Plattform hinzugefügt (alle else if Blöcke wurden mit switch ersetzt)                                                                           |
 | 06.07.2026 | Farbe der Einträge, passierend auf deren Bewerturng, ändern , Eingabe von AnfangsDatum und EndDatum hinzugefügt => noch mit Bearbeiten geht das noch nicht                                |
 | 07.07.2026 | Datum kann bearbeitet werden, Es gibt einen Counter der zählt wie viele Spiel innerhalb der Liste sich befinden und der Text für den Button im Form ändert sich wenn man etwas Bearbeitet |
+| 08.07.2026 | Sortierung komplett überarbeitet, anfang von statisktik = > div kann versteckt werden |

@@ -16,6 +16,7 @@ function init() {
     .querySelector("#sortierPlattform")
     .addEventListener("change", handleSortPlattform);
   document.querySelector("#suche").addEventListener("input", handleSearchGame);
+  document.querySelector('#stat').addEventListener('click', handleHideStatistik);
   if (spiele.length > 0) {
     //Überprüfen ob es mind. ein Spiel im Array existiert
     handleUpdateCounter();
@@ -275,6 +276,11 @@ function handleSortingOfArray() {
   }
 
   displaySpiele(kopie);
+}
+
+function handleHideStatistik() {
+  document.querySelector('#statistik').style.display = document.querySelector('#statistik').style.display === "none" ? "block" : "none";
+  
 }
 
 //#endregion

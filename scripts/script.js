@@ -286,16 +286,21 @@ function handleSortingOfArray() {
 //#region Statistik
 function handleHideStatistik() {
   let box = document.querySelector("#statistik");
+  box.innerHTML = "";
   if (box.style.display === "none") {
     box.style.display = "block";
   } else {
     box.style.display = "none";
-    box.innerHTML = "";
+    
   }
 
   let durchschnitt = document.createElement("p");
   durchschnitt.textContent = berechenStatistik();
   box.append(durchschnitt);
+  let maxPlattform = document.createElement("p");
+  maxPlattform.textContent = zählePlattfromen();
+  box.append(maxPlattform);
+
 }
 
 function berechenStatistik() {
@@ -311,6 +316,23 @@ function berechenStatistik() {
     ergebnis = ergebnis.toFixed(2);
     return `Die Durchschnittsbewertung aller Einträge beträgt: ${ergebnis}`;
   }
+}
+
+function zählePlattfromen() {
+  let zähler = {};
+  for (let spiel of spiele) {
+    zähler[spiel.plattform] = (zähler[spiel.plattform] || 0) + 1; // mit [] einen neuen Key setzen oder alten verwenden und den mit 1 addieren
+  }
+  //Schönen String bauen
+  let max = 0;
+  let maxString = "";
+  for (let plattform in zähler) {
+    if (max < zähler[plattform])  {
+      max = zähler[plattform];
+      maxString = plattform;
+    }
+  }
+  return `Die Plattfrom mit den meisten eingetragenen Spiele ist: ${maxString} mit ${max} Spielen!`;
 }
 
 //#endregion

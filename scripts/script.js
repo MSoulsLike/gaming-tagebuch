@@ -16,7 +16,9 @@ function init() {
     .querySelector("#sortierPlattform")
     .addEventListener("change", handleSortPlattform);
   document.querySelector("#suche").addEventListener("input", handleSearchGame);
-  document.querySelector('#stat').addEventListener('click', handleHideStatistik);
+  document
+    .querySelector("#stat")
+    .addEventListener("click", handleHideStatistik);
   if (spiele.length > 0) {
     //Überprüfen ob es mind. ein Spiel im Array existiert
     handleUpdateCounter();
@@ -235,6 +237,7 @@ function handleUpdateCounter() {
   }
 }
 
+//#region SortierFunktionen
 function handleSortPlattform() {
   aktiverFilter = event.target.value;
   handleSortingOfArray();
@@ -278,9 +281,38 @@ function handleSortingOfArray() {
   displaySpiele(kopie);
 }
 
+//#endregion
+
+//#region Statistik
 function handleHideStatistik() {
-  document.querySelector('#statistik').style.display = document.querySelector('#statistik').style.display === "none" ? "block" : "none";
-  
+  let box = document.querySelector("#statistik");
+  if (box.style.display === "none") {
+    box.style.display = "block";
+  } else {
+    box.style.display = "none";
+    box.innerHTML = "";
+  }
+
+  let durchschnitt = document.createElement("p");
+  durchschnitt.textContent = berechenStatistik();
+  box.append(durchschnitt);
 }
+
+function berechenStatistik() {
+  if (spiele.length === 0) {
+    //Sonst dividiert man mit 0
+    return "Es existieren keine Einträge!!";
+  } else {
+    let ergebnis = spiele.reduce(
+      (summe, spiel) => (summe += spiel.bewertung),
+      0,
+    ); //Dies ist am Ende des Tages eine kompakte Schreibweise für eine For-Schleife
+    ergebnis /= spiele.length; //Durchschnitt berechnen
+    ergebnis = ergebnis.toFixed(2);
+    return `Die Durchschnittsbewertung aller Einträge beträgt: ${ergebnis}`;
+  }
+}
+
+//#endregion
 
 //#endregion

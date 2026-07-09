@@ -305,6 +305,9 @@ function handleHideStatistik() {
   let bewertungen = document.createElement("p");
   bewertungen.textContent = zähleBewertungen();
   box.append(bewertungen);
+  //Bestes und Schlechtestes...
+  let busSpiel = document.createElement("p");
+  busSpiel.textContent = getBestesUndSchlechtestesSpiel();
 
 }
 
@@ -345,7 +348,7 @@ function zähleBewertungen() {
   for (let spiel of spiele) {
     zähler[spiel.bewertung] = (zähler[spiel.bewertung] || 0) + 1;
   }
-  console.log(JSON.stringify(zähler));
+
   //Schönen String machen
   let ergebnis = "";
   for (let bewertung in zähler) {
@@ -358,6 +361,33 @@ function zähleBewertungen() {
   }
 
   return ergebnis;
+}
+
+function getBestesUndSchlechtestesSpiel() {
+  let zähler = {};
+  //Keys damit man später die Values setzen kann
+  zähler["best"] = "";
+  zähler["worst"] = "";
+
+  for (let spiel of spiele) {
+    let neuesSpiel = {
+      name: spiel.titel,
+      note: spiel.bewertung
+    }
+    //Bestes und Schlechtestes Spiel gesetzt
+    if (zähler.best === "" || zähler.best.note > spiel.bewertung) { // Muss immer ein bestes geben, sogar wenn nur ein Eintrag existiert
+      zähler.best = neuesSpiel;
+    } else if (zähler.worst === "" || zähler.worst.note < spiel.bewertung) {
+      zähler.worst = neuesSpiel;
+    } else if (zähler.best.note === spiel.bewertung) {
+      zähler.best.push(neuesSpiel);
+    } else if (zähler.worst.note === spiel.bewertung) {
+      zähler.worst.push(neuesSpiel);
+    }
+
+
+  }
+  console.log(JSON.stringify(zähler));
 }
 
 //#endregion

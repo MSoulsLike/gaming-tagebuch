@@ -297,9 +297,14 @@ function handleHideStatistik() {
   let durchschnitt = document.createElement("p");
   durchschnitt.textContent = berechenStatistik();
   box.append(durchschnitt);
+
   let maxPlattform = document.createElement("p");
   maxPlattform.textContent = zählePlattfromen();
   box.append(maxPlattform);
+
+  let bewertungen = document.createElement("p");
+  bewertungen.textContent = zähleBewertungen();
+  box.append(bewertungen);
 
 }
 
@@ -333,6 +338,26 @@ function zählePlattfromen() {
     }
   }
   return `Die Plattfrom mit den meisten eingetragenen Spiele ist: ${maxString} mit ${max} Spielen!`;
+}
+
+function zähleBewertungen() {
+  let zähler = {};
+  for (let spiel of spiele) {
+    zähler[spiel.bewertung] = (zähler[spiel.bewertung] || 0) + 1;
+  }
+  console.log(JSON.stringify(zähler));
+  //Schönen String machen
+  let ergebnis = "";
+  for (let bewertung in zähler) {
+    ergebnis+= `Note: ${bewertung}, ${zähler[bewertung]}`;
+    if (zähler[bewertung] === 1) {
+      ergebnis += " Spiel ";
+    } else {
+      ergebnis += " Spiele ";
+    }
+  }
+
+  return ergebnis;
 }
 
 //#endregion

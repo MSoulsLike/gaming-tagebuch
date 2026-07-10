@@ -291,7 +291,6 @@ function handleHideStatistik() {
     box.style.display = "block";
   } else {
     box.style.display = "none";
-    
   }
 
   let durchschnitt = document.createElement("p");
@@ -308,7 +307,6 @@ function handleHideStatistik() {
   //Bestes und Schlechtestes...
   let busSpiel = document.createElement("p");
   busSpiel.textContent = getBestesUndSchlechtestesSpiel();
-
 }
 
 function berechenStatistik() {
@@ -335,7 +333,7 @@ function zählePlattfromen() {
   let max = 0;
   let maxString = "";
   for (let plattform in zähler) {
-    if (max < zähler[plattform])  {
+    if (max < zähler[plattform]) {
       max = zähler[plattform];
       maxString = plattform;
     }
@@ -352,7 +350,7 @@ function zähleBewertungen() {
   //Schönen String machen
   let ergebnis = "";
   for (let bewertung in zähler) {
-    ergebnis+= `Note: ${bewertung}, ${zähler[bewertung]}`;
+    ergebnis += `Note: ${bewertung}, ${zähler[bewertung]}`;
     if (zähler[bewertung] === 1) {
       ergebnis += " Spiel ";
     } else {
@@ -364,30 +362,31 @@ function zähleBewertungen() {
 }
 
 function getBestesUndSchlechtestesSpiel() {
-  let zähler = {};
+  let zähler = {
+    best: [],
+    worst: [],
+  };
   //Keys damit man später die Values setzen kann
-  zähler["best"] = "";
-  zähler["worst"] = "";
-
   for (let spiel of spiele) {
     let neuesSpiel = {
       name: spiel.titel,
-      note: spiel.bewertung
-    }
-    //Bestes und Schlechtestes Spiel gesetzt
-    if (zähler.best === "" || zähler.best.note > spiel.bewertung) { // Muss immer ein bestes geben, sogar wenn nur ein Eintrag existiert
-      zähler.best = neuesSpiel;
-    } else if (zähler.worst === "" || zähler.worst.note < spiel.bewertung) {
-      zähler.worst = neuesSpiel;
-    } else if (zähler.best.note === spiel.bewertung) {
+      note: spiel.bewertung,
+    };
+    //Wenn eine Stelle leer, dann sofort füllen (Überprüfen wäre sinnlos)
+    //Nach || => Jedes Objekt innerhalb von den Arrays haben identische Bewertungen z.B: in best ist bewertung immer 1, in worst ist die Bewertung immer 4
+    if (zähler.best.length === 0 || zähler.best[0].note === neuesSpiel.note) {
       zähler.best.push(neuesSpiel);
-    } else if (zähler.worst.note === spiel.bewertung) {
+    } else if (zähler.worst.length === 0|| zähler.worst[0].note === neuesSpiel.note) {
+      zähler.worst.push(neuesSpiel);
+    } else if (zähler.best[0].note > neuesSpiel.note) {
+      zähler.best = [];
+      zähler.best.push(neuesSpiel);
+    } else if (zähler.worst[0].note < neuesSpiel.note) {
+      zähler.worst = [];
       zähler.worst.push(neuesSpiel);
     }
-
-
   }
-  console.log(JSON.stringify(zähler));
+ 
 }
 
 //#endregion

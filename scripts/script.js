@@ -303,6 +303,7 @@ function handleHideStatistik() {
       zählePlattformen,
       zähleBewertungen,
       getBestesUndSchlechtestesSpiel,
+      getGesamteSpielzeit
     ];
     for (let funktion of funktionen) {
       box.append(makeTextForBox(funktion));
@@ -426,6 +427,26 @@ function getBestesUndSchlechtestesSpiel() {
     return ergebnis;
   }
   
+}
+
+function getGesamteSpielzeit() {
+  if (spiele.length === 1) {
+    return "";
+  }
+  let summe = 0;
+  for (let spiel of spiele) {
+    //In Objekte umwandeln
+    if (spiel.beginn === "") continue; // continue überspringt das Objekt und geht zum nächsten
+    let anfang = new Date(spiel.beginn);
+    let ende = new Date(spiel.ende);
+
+    let differenz = ende-anfang; //Das Ergebnis ist in Millisekunden
+    let tag = Math.floor(differenz / (1000*60*60*24)) // 1 Sekunde = 1000 Millisekunden; 1 Minute = 60 Sekunden, 1 Stunde = 60 Minuten; 1 Tag = 24 Stunden
+    summe += tag;
+  }
+
+  return `Die Spielzeit aller Spiele beträgt: ${summe} Tage`;
+
 }
 
 //#endregion

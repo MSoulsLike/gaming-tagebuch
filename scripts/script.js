@@ -293,20 +293,28 @@ function handleHideStatistik() {
     box.style.display = "none";
   }
 
-  let durchschnitt = document.createElement("p");
-  durchschnitt.textContent = berechenStatistik();
-  box.append(durchschnitt);
+  if (spiele.length === 0) {
+    let leerText = document.createElement("p");
+    leerText.textContent = "Bitte trage ein Spiel ein!";
+    box.append(leerText);
+  } else {
+    let funktionen = [
+      berechenStatistik,
+      zählePlattformen,
+      zähleBewertungen,
+      getBestesUndSchlechtestesSpiel,
+    ];
+    for (let funktion of funktionen) {
+      box.append(makeTextForBox(funktion));
+    }
+  }
 
-  let maxPlattform = document.createElement("p");
-  maxPlattform.textContent = zählePlattfromen();
-  box.append(maxPlattform);
+}
 
-  let bewertungen = document.createElement("p");
-  bewertungen.textContent = zähleBewertungen();
-  box.append(bewertungen);
-  //Bestes und Schlechtestes...
-  let busSpiel = document.createElement("p");
-  busSpiel.textContent = getBestesUndSchlechtestesSpiel();
+function makeTextForBox(func) {
+  let text = document.createElement("p");
+  text.textContent = func();
+  return text;
 }
 
 function berechenStatistik() {
@@ -324,7 +332,7 @@ function berechenStatistik() {
   }
 }
 
-function zählePlattfromen() {
+function zählePlattformen() {
   let zähler = {};
   for (let spiel of spiele) {
     zähler[spiel.plattform] = (zähler[spiel.plattform] || 0) + 1; // mit [] einen neuen Key setzen oder alten verwenden und den mit 1 addieren
@@ -362,31 +370,62 @@ function zähleBewertungen() {
 }
 
 function getBestesUndSchlechtestesSpiel() {
-  let zähler = {
-    best: [],
-    worst: [],
-  };
-  //Keys damit man später die Values setzen kann
-  for (let spiel of spiele) {
-    let neuesSpiel = {
-      name: spiel.titel,
-      note: spiel.bewertung,
+  if (spiele.length === 1) {
+    return `Es gibt nur ein Spiel: ${spiele[0].titel} – es ist automatisch das beste und schlechteste!`;
+  } else {
+    let zähler = {
+      best: [],
+      worst: [],
     };
-    //Wenn eine Stelle leer, dann sofort füllen (Überprüfen wäre sinnlos)
-    //Nach || => Jedes Objekt innerhalb von den Arrays haben identische Bewertungen z.B: in best ist bewertung immer 1, in worst ist die Bewertung immer 4
-    if (zähler.best.length === 0 || zähler.best[0].note === neuesSpiel.note) {
-      zähler.best.push(neuesSpiel);
-    } else if (zähler.worst.length === 0|| zähler.worst[0].note === neuesSpiel.note) {
-      zähler.worst.push(neuesSpiel);
-    } else if (zähler.best[0].note > neuesSpiel.note) {
-      zähler.best = [];
-      zähler.best.push(neuesSpiel);
-    } else if (zähler.worst[0].note < neuesSpiel.note) {
-      zähler.worst = [];
-      zähler.worst.push(neuesSpiel);
+    //Keys damit man später die Values setzen kann
+    for (let spiel of spiele) {
+      let neuesSpiel = {
+        name: spiel.titel,
+        note: spiel.bewertung,
+      };
+      //Wenn eine Stelle leer, dann sofort füllen (Überprüfen wäre sinnlos)
+      //Nach || => Jedes Objekt innerhalb von den Arrays haben identische Bewertungen z.B: in best ist bewertung immer 1, in worst ist die Bewertung immer 4
+      if (zähler.best.length === 0 || zähler.best[0].note === neuesSpiel.note) {
+        zähler.best.push(neuesSpiel);
+      } else if (
+        zähler.worst.length === 0 ||
+        zähler.worst[0].note === neuesSpiel.note
+      ) {
+        zähler.worst.push(neuesSpiel);
+      } else if (zähler.best[0].note > neuesSpiel.note) {
+        zähler.best = [];
+        zähler.best.push(neuesSpiel);
+      } else if (zähler.worst[0].note < neuesSpiel.note) {
+        zähler.worst = [];
+        zähler.worst.push(neuesSpiel);
+      }
     }
+
+    //Schönen String erschaffen
+    let ergebnis = "";
+    for (let key in zähler) {
+      //Array von zähler auswählen
+      let array = zähler[key];
+      if (key === "best") {
+        ergebnis +=
+          array.length > 1
+            ? "Die besten Spiele sind: "
+            : "Das beste Spiel ist: ";
+      } else {
+        ergebnis +=
+          array.length > 1
+            ? "Die schlechtesten Spiele sind: "
+            : "Das schlechteste Spiel ist: ";
+      }
+
+      for (let spiel of array) {
+        ergebnis += `${spiel.name} `;
+      }
+      ergebnis += "\n";
+    }
+    return ergebnis;
   }
- 
+  
 }
 
 //#endregion

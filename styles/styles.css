@@ -32,6 +32,27 @@ header {
   background-color: var(--text-farbe);
 }
 
+main {
+  display: flex;
+  flex: 1;
+}
+
+aside {
+  width: 250px;
+  min-height: 100vh;
+  background-color: var(--box);
+  padding: 15px;
+  position: sticky;
+  top: 0;
+}
+
+aside p {
+  border-bottom: 2px solid var(--btn-hover);
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  line-height: normal; 
+}
+
 form {
   display: flex;
   flex-direction: column;

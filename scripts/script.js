@@ -16,9 +16,11 @@ function init() {
     .querySelector("#sortierPlattform")
     .addEventListener("change", handleSortPlattform);
   document.querySelector("#suche").addEventListener("input", handleSearchGame);
+  document.querySelector('#statistikInhalt').style.display = "none";
   document
     .querySelector("#stat")
     .addEventListener("click", handleHideStatistik);
+  
   if (spiele.length > 0) {
     //Überprüfen ob es mind. ein Spiel im Array existiert
     handleUpdateCounter();
@@ -285,7 +287,7 @@ function handleSortingOfArray() {
 
 //#region Statistik
 function handleHideStatistik() {
-  let box = document.querySelector("#statistik");
+  let box = document.querySelector("#statistikInhalt");
   box.innerHTML = "";
   if (box.style.display === "none") {
     box.style.display = "block";
@@ -301,13 +303,19 @@ function handleHideStatistik() {
     let funktionen = [
       berechenStatistik,
       zählePlattformen,
-      zähleBewertungen,
       getBestesUndSchlechtestesSpiel,
       getGesamteSpielzeit,
-      getDurchschnittlicheSpielzeitProPlattform,
     ];
     for (let funktion of funktionen) {
       box.append(makeTextForBox(funktion));
+    }
+    //Seperate Array für Funktionen die Arraysreturnen
+    let funktionWithArrays = [
+      getDurchschnittlicheSpielzeitProPlattform,
+      zähleBewertungen,
+    ];
+    for (let i = 0; i < funktionWithArrays.length; i++) {
+      makeTextForBoxWithArray(funktionWithArrays[i], box);
     }
   }
 }
@@ -316,6 +324,15 @@ function makeTextForBox(func) {
   let text = document.createElement("p");
   text.textContent = func();
   return text;
+}
+
+function makeTextForBoxWithArray(func, box) {
+  let array = func();
+  for (let i = 0; i < array.length; i++) {
+    let text = document.createElement("p");
+    text.textContent = array[i];
+    box.append(text);
+  }
 }
 
 function berechenStatistik() {
@@ -347,7 +364,7 @@ function zählePlattformen() {
       maxString = plattform;
     }
   }
-  return `Die Plattfrom mit den meisten eingetragenen Spiele ist: ${maxString} mit ${max} Spielen!`;
+  return `Die Plattform mit den meisten eingetragenen Spiele ist: ${maxString} mit ${max} Spielen!`;
 }
 
 function zähleBewertungen() {
@@ -358,6 +375,7 @@ function zähleBewertungen() {
 
   //Schönen String machen
   let ergebnis = "";
+  let ergebnisArray = [];
   for (let bewertung in zähler) {
     ergebnis += `Note: ${bewertung}, ${zähler[bewertung]}`;
     if (zähler[bewertung] === 1) {
@@ -365,9 +383,11 @@ function zähleBewertungen() {
     } else {
       ergebnis += " Spiele ";
     }
+    ergebnisArray.push(ergebnis);
+    ergebnis = "";
   }
 
-  return ergebnis;
+  return ergebnisArray;
 }
 
 function getBestesUndSchlechtestesSpiel() {
@@ -419,9 +439,8 @@ function getBestesUndSchlechtestesSpiel() {
             : "Das schlechteste Spiel ist: ";
       }
 
-      for (let spiel of array) {
-        ergebnis += `${spiel.name} `;
-      }
+      let titel = array.map((spiel) => spiel.name).join(", "); //Kompremierte for-Schleife die einen String (spiel.name) mit join("Inhalt") den Inhalt hinzufügt in diesen Fall mit ein , 
+      ergebnis += titel;
       ergebnis += "\n";
     }
     return ergebnis;
@@ -446,17 +465,21 @@ function getDurchschnittlicheSpielzeitProPlattform() {
   let plattfromAnzahl = {};
 
   for (let spiel of spiele) {
-    spielzeit[spiel.plattform] = (spielzeit[spiel.plattform] || 0) + berechneSpielzeit(spiel);
-    plattfromAnzahl[spiel.plattform] = (plattfromAnzahl[spiel.plattform] || 0) + 1;
+    spielzeit[spiel.plattform] =
+      (spielzeit[spiel.plattform] || 0) + berechneSpielzeit(spiel);
+    plattfromAnzahl[spiel.plattform] =
+      (plattfromAnzahl[spiel.plattform] || 0) + 1;
   }
 
   //Schönen String machen
-  let ergebnis = "";
-  for (let key in spielzeit) { //ist egal welches Objekt man nimmt, haben die gleichen Keys
-    ergebnis += `Die Durchschnittliche Spieldauer auf der Plattfrom ${key} beträgt ${(spielzeit[key]/plattfromAnzahl[key])} Tage \n`;
+  let ergebnis = [];
+  let plattformString = "";
+  for (let key in spielzeit) {
+    //ist egal welches Objekt man nimmt, haben die gleichen Keys
+    plattformString = `Die Durchschnittliche Spieldauer auf der Plattfrom ${key} beträgt ${spielzeit[key] / plattfromAnzahl[key]} Tage \n`;
+    ergebnis.push(plattformString);
   }
   return ergebnis;
-
 }
 
 function berechneSpielzeit(spiel) {

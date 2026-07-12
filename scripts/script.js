@@ -303,13 +303,13 @@ function handleHideStatistik() {
       zählePlattformen,
       zähleBewertungen,
       getBestesUndSchlechtestesSpiel,
-      getGesamteSpielzeit
+      getGesamteSpielzeit,
+      getDurchschnittlicheSpielzeitProPlattform,
     ];
     for (let funktion of funktionen) {
       box.append(makeTextForBox(funktion));
     }
   }
-
 }
 
 function makeTextForBox(func) {
@@ -426,7 +426,6 @@ function getBestesUndSchlechtestesSpiel() {
     }
     return ergebnis;
   }
-  
 }
 
 function getGesamteSpielzeit() {
@@ -435,18 +434,38 @@ function getGesamteSpielzeit() {
   }
   let summe = 0;
   for (let spiel of spiele) {
-    //In Objekte umwandeln
     if (spiel.beginn === "") continue; // continue überspringt das Objekt und geht zum nächsten
-    let anfang = new Date(spiel.beginn);
-    let ende = new Date(spiel.ende);
-
-    let differenz = ende-anfang; //Das Ergebnis ist in Millisekunden
-    let tag = Math.floor(differenz / (1000*60*60*24)) // 1 Sekunde = 1000 Millisekunden; 1 Minute = 60 Sekunden, 1 Stunde = 60 Minuten; 1 Tag = 24 Stunden
-    summe += tag;
+    summe += berechneSpielzeit(spiel);
   }
 
   return `Die Spielzeit aller Spiele beträgt: ${summe} Tage`;
+}
 
+function getDurchschnittlicheSpielzeitProPlattform() {
+  let spielzeit = {};
+  let plattfromAnzahl = {};
+
+  for (let spiel of spiele) {
+    spielzeit[spiel.plattform] = (spielzeit[spiel.plattform] || 0) + berechneSpielzeit(spiel);
+    plattfromAnzahl[spiel.plattform] = (plattfromAnzahl[spiel.plattform] || 0) + 1;
+  }
+
+  //Schönen String machen
+  let ergebnis = "";
+  for (let key in spielzeit) { //ist egal welches Objekt man nimmt, haben die gleichen Keys
+    ergebnis += `Die Durchschnittliche Spieldauer auf der Plattfrom ${key} beträgt ${(spielzeit[key]/plattfromAnzahl[key])} Tage \n`;
+  }
+  return ergebnis;
+
+}
+
+function berechneSpielzeit(spiel) {
+  //In Objekte umwandeln
+  let anfang = new Date(spiel.beginn);
+  let ende = new Date(spiel.ende);
+  let differenz = ende - anfang; //Das Ergebnis ist in Millisekunden
+  let tag = Math.floor(differenz / (1000 * 60 * 60 * 24)); // 1 Sekunde = 1000 Millisekunden; 1 Minute = 60 Sekunden, 1 Stunde = 60 Minuten; 1 Tag = 24 Stunden
+  return tag;
 }
 
 //#endregion

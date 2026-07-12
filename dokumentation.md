@@ -24,9 +24,9 @@ Die Webseite soll Einträge hinzufügen können
 
 ### 💡 Später / Ideen (v3+)
 
-- ein "Ranking" aller Spiele
-- Suchfunktion
-- Logo von Plattform
+- ein "Ranking" aller Spiele✅
+- Suchfunktion✅
+- Logo von Plattform✅
 
 ## 3. Datenstruktur
 
@@ -80,3 +80,4 @@ Die Webseite soll Einträge hinzufügen können
 | 08.07.2026 | Sortierung komplett überarbeitet, anfang von statisktik = > div kann versteckt werden |
 | 09.07.2026 | Durchschnitt wird von allen Spielen berechnen, Plattform mit den meisten Spiele wird angezeigt, aller Noten zusammenrechnen, bestes und schlechtestes Spiel[e] noch mit fehlern aber gut vorangeschritten |
 | 11.07.2026 | bestes und schlechteste Spiel wird angezeigt, Code etwas optimiert und die GesamtSpielzeit aller Spiele wird auch angezeigt, jedoch noch return String fertigstellen wenn spiele.length === 1 ist |
+| 12.07.2026 | getDurchschnittlicheSpielzeitProPlattform implementiert, und für Statistik ein Aside erstellt mit Änderungen der Strings |

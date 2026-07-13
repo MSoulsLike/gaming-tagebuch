@@ -12,6 +12,25 @@
 
 /* #endregion */
 
+/* #region Media => Damit auch die App auf Smartphons(kleinere Bildschirme funktioniert)*/
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+    aside {
+     width: 100%;
+        min-height: auto;
+        position: static;
+        padding: 10px;
+    }
+    form, #BoxSpiele, #steuerung {
+        max-width: 100%;
+    }
+}
+
+/* #endregion */
+
+
 /* #region Html Tags*/
 body {
   background-color: var(--hintergrund);

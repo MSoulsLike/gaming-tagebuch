@@ -476,7 +476,7 @@ function getDurchschnittlicheSpielzeitProPlattform() {
   let plattformString = "";
   for (let key in spielzeit) {
     //ist egal welches Objekt man nimmt, haben die gleichen Keys
-    plattformString = `Die Durchschnittliche Spieldauer auf der Plattfrom ${key} beträgt ${spielzeit[key] / plattfromAnzahl[key]} Tage \n`;
+    plattformString = `Die Durchschnittliche Spieldauer auf der Plattform ${key} beträgt ${Math.round(spielzeit[key] / plattfromAnzahl[key])} Tage \n`;
     ergebnis.push(plattformString);
   }
   return ergebnis;

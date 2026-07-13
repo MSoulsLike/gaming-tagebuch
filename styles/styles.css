@@ -129,3 +129,8 @@ select {
 #statistik {
     white-space: pre-line;
 }
+
+#BoxSpiele {
+  max-height: 80vh;
+  overflow-y: auto;
+}

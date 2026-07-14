@@ -18,13 +18,13 @@
         flex-direction: column;
     }
     aside {
-     width: 100%;
+        width: 100%;
         min-height: auto;
         position: static;
         padding: 10px;
     }
-    form, #BoxSpiele, #steuerung {
-        max-width: 100%;
+    #hauptinhalt {
+        width: 100%;
     }
 }
 
@@ -152,4 +152,11 @@ select {
 #BoxSpiele {
   max-height: 80vh;
   overflow-y: auto;
+}
+#hauptinhalt {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 20px;
 }

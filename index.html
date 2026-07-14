@@ -29,60 +29,62 @@
         <div id="statistikInhalt"></div>
       </aside>
       <!--Benutzereingabe-->
-      <form>
-        <!-- Titel; Bewertung (1-5 als Schulnote); kurzes Fazit -->
-        <label for="titel">Titel des Spiels: </label>
-        <input type="text" id="titel" />
+      <div id="hauptInhalt">
+        <form>
+          <!-- Titel; Bewertung (1-5 als Schulnote); kurzes Fazit -->
+          <label for="titel">Titel des Spiels: </label>
+          <input type="text" id="titel" />
 
-        <label for="bewertung">Bewertung (1 - 5 => Schulnoten)</label>
-        <input type="number" id="bewertung" min="1" max="5" />
+          <label for="bewertung">Bewertung (1 - 5 => Schulnoten)</label>
+          <input type="number" id="bewertung" min="1" max="5" />
 
-        <label for="fazit">Kurzes Fazit: </label>
-        <textarea id="fazit" maxlength="300"></textarea>
+          <label for="fazit">Kurzes Fazit: </label>
+          <textarea id="fazit" maxlength="300"></textarea>
 
-        <label for="datumanfang">Datum andem Spiel angefangen wurde: </label>
-        <input type="date" id="datumanfang" />
+          <label for="datumanfang">Datum andem Spiel angefangen wurde: </label>
+          <input type="date" id="datumanfang" />
 
-        <label for="datumende"
-          >Datum andem Spiel beendet wurde (Default: Heute):
-        </label>
-        <input type="date" id="datumende" />
+          <label for="datumende"
+            >Datum andem Spiel beendet wurde (Default: Heute):
+          </label>
+          <input type="date" id="datumende" />
 
-        <label for="plattform">Plattform: </label>
-        <select name="plattform" id="plattform">
-          <option value="">--Plattform auswählen--</option>
-          <option value="PC">Pc (Steam,Epic Games,etc..)</option>
-          <option value="Nintendo">Nintendo</option>
-          <option value="PlayStation">PlayStation</option>
-          <option value="XBox">XBox</option>
-        </select>
+          <label for="plattform">Plattform: </label>
+          <select name="plattform" id="plattform">
+            <option value="">--Plattform auswählen--</option>
+            <option value="PC">Pc (Steam,Epic Games,etc..)</option>
+            <option value="Nintendo">Nintendo</option>
+            <option value="PlayStation">PlayStation</option>
+            <option value="XBox">XBox</option>
+          </select>
 
-        <button type="button" id="form-btn">Fertigstellen</button>
-      </form>
+          <button type="button" id="form-btn">Fertigstellen</button>
+        </form>
 
-      <!--Anzeige Feld -->
-      <div id="sucheFuerNutzer">
-        <select name="sortieren" id="sortieren">
-          <option value="standard">Keine Sortierung</option>
-          <option value="aufsteigend">Bewertung aufsteigend</option>
-          <option value="absteigend">Bewertung absteigend</option>
-          <option value="az">Titel A-Z</option>
-          <option value="za">Titel Z-A</option>
-        </select>
+        <!--Anzeige Feld -->
+        <div id="sucheFuerNutzer">
+          <select name="sortieren" id="sortieren">
+            <option value="standard">Keine Sortierung</option>
+            <option value="aufsteigend">Bewertung aufsteigend</option>
+            <option value="absteigend">Bewertung absteigend</option>
+            <option value="az">Titel A-Z</option>
+            <option value="za">Titel Z-A</option>
+          </select>
 
-        <select name="sortierPlattform" id="sortierPlattform">
-          <option value="">Keine Sortierung</option>
-          <option value="PC">Pc (Steam,Epic Games,etc..)</option>
-          <option value="Nintendo">Nintendo</option>
-          <option value="PlayStation">PlayStation</option>
-          <option value="XBox">XBox</option>
-        </select>
+          <select name="sortierPlattform" id="sortierPlattform">
+            <option value="">Keine Sortierung</option>
+            <option value="PC">Pc (Steam,Epic Games,etc..)</option>
+            <option value="Nintendo">Nintendo</option>
+            <option value="PlayStation">PlayStation</option>
+            <option value="XBox">XBox</option>
+          </select>
 
-        <label for="suche">Spiel suchen: </label>
-        <input type="text" id="suche" />
+          <label for="suche">Spiel suchen: </label>
+          <input type="text" id="suche" />
+        </div>
+
+        <div id="BoxSpiele"></div>
       </div>
-
-      <div id="BoxSpiele"></div>
     </main>
 
     <footer>
